@@ -45,3 +45,5 @@ jobs:
               run: |
                   echo "Deploy finalizado correctamente"
                   echo "Si recargas la web, verás los cambios"
+# export $S3_BUCKET_NAME="s3-bucket-terraform-holahola"                
+# echo -n "$S3_BUCKET_NAME" | gh secret set S3_BUCKET_NAME
