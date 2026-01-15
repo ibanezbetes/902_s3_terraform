@@ -1,0 +1,47 @@
+name: 08-deploy-web-s3
+on:
+    # El deploy se ejecuta automáticamente
+    # cuando hacemos push a main
+    push:
+        branches:
+            - master
+        # Solo si cambia la web
+        paths:
+            - web/**
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        # Secrets de AWS (AWS Academy)
+        env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+            AWS_REGION: ${{ secrets.AWS_REGION }}
+            S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+
+        steps:
+            # PASO 1
+            # Descargar el código del repositorio
+            - name: Descargar el código
+              uses: actions/checkout@v4
+
+            # PASO 2
+            # Mensaje didáctico
+            - name: Explicación del deploy
+              run: |
+                  echo "Vamos a desplegar la web en AWS S3"
+                  echo "Sin usar la consola"
+                  echo "Sin usar nuestro ordenador"
+
+            # PASO 3
+            # Subir los archivos al bucket S3
+            - name: Subir web a S3
+              run: |
+                  aws s3 sync web s3://$S3_BUCKET_NAME --delete
+
+            # PASO 4
+            # Mensaje final
+            - name: Deploy completado
+              run: |
+                  echo "Deploy finalizado correctamente"
+                  echo "Si recargas la web, verás los cambios"
