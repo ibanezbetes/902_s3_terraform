@@ -1,0 +1,12 @@
+name: 02-push
+
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    push-02: 
+        runs-on: ubuntu-latest
+        steps:
+            - name: Hola Lucía
+              run: echo "Hola Lucía"

@@ -1,0 +1,20 @@
+name: 03-runner
+
+on:
+    push:
+
+jobs:
+    runner-1: 
+        runs-on: ubuntu-latest
+        steps:
+            - name: ¿Quién soy?
+              run: |
+                whoami
+                pwd
+            - name: ¿Dónde estoy?
+              run: |
+                ls
+                ls -la
+            - name: Mensaje personalizado
+              run: |
+                echo "Hola Lucía runner"
